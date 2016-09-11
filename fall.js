@@ -1,6 +1,10 @@
-var imageUrl = "babycorn.gif";  //Image path should be given here
+var imageUrls = [
+	"babycorn.gif",
+	"unicorn.png"
+]
 var count = 15; // count of images should fall
 var fallerSpeed = 30; // Fix how fast the image should fall. Smaller is faster
+var difficulty = 1;
 var explosionAnimationDelay = 40;
 var viewportWidth, viewportHeight;
 var fallers = new Array();
@@ -25,6 +29,10 @@ function updateViewport() {
 	viewportWidth = window.innerWidth;
 }
 
+function getRandomFallerImage() {
+	return imageUrls[parseInt(Math.random()*imageUrls.length,10)]
+}
+
 function Faller() {
 	var _this = this;
 	
@@ -32,8 +40,8 @@ function Faller() {
 		this.x = Math.random()*(window.innerWidth-100);  // set position variables
 		this.y = -(Math.random()*viewportHeight);     // set position variables
 		this.deltaX = 0.03 + Math.random()/10;  // set step variables
-		this.deltaY = 0.6 + Math.random();    // set step variables
-		this.spread = Math.random()*20;         // set amplitude variables
+		this.deltaY = (1.3 * difficulty) + Math.random();    // set step variables
+		this.spread = Math.random()*40*(difficulty/2);         // set amplitude variables
 		this.cv = 0;
 		
 		this.rotates = Math.random() > 0.6
@@ -47,12 +55,12 @@ function Faller() {
 		this.elem.id = "dot"+fallers.length;
 		
 		var img = document.createElement("img");
-		img.src = imageUrl;
+		img.src = getRandomFallerImage();
 		this.elem.appendChild(img);
 		
 		document.body.appendChild(this.elem);
 		
-		this.elem.addEventListener("click", function() {
+		this.elem.addEventListener("mousedown", function() {
 			incrementScore();
 			_this.spawnExplosion();
 			_this.reset();
@@ -86,6 +94,8 @@ function incrementScore() {
 	}
 
 	score+=10;
+	difficulty+=0.06;
+	
 	scoreElem.innerHTML = "SCORE: "+score;
 }
 
