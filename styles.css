@@ -1,0 +1,28 @@
+.js-fall-faller {
+	position: absolute; 
+	
+	z-index: 9000; 
+	top: 15px;
+	left: 15px;
+	
+	cursor: url('target.png'), default;
+}
+
+.js-fall-explosion {
+	position: absolute; 
+	z-index: 8999; 
+	
+	width: 157px;
+	height: 229px;
+	background-image: url('explosion-sprite.gif');
+	background-repeat: no-repeat;
+}
+
+.js-fall-score {
+	position: fixed;
+	bottom: 30px;
+	left: 30px;
+	
+	font-family: Courier, Sans-Serif;
+	font-size: 20pt;
+}
